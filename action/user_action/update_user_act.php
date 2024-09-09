@@ -8,9 +8,10 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
+$role = $_POST['role'];
 
 // query
-$sql = "UPDATE user SET nama = '$name', email = '$email', username = '$username', password = '$password' WHERE id = $id";
+$sql = "UPDATE user SET nama = '$name', email = '$email', username = '$username', password = '$password', role = $role WHERE id = $id";
 
 // jalankan query
 //responnya apa dan kemana

@@ -71,7 +71,7 @@
               <span class="hide-menu">TRANSAKSI</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+              <a class="sidebar-link" href="../../pages/transaksi/index.php" aria-expanded="false">
                 <span>
                   <i class="ti ti-history"></i>
                 </span>

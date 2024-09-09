@@ -58,7 +58,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+              <a class="sidebar-link" href="../pembayaran/index.php" aria-expanded="false">
                 <span>
                   <i class="ti ti-credit-card"></i>
                 </span>

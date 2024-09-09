@@ -8,7 +8,6 @@
     <title>Modernize Free</title>
     <link rel="shortcut icon" type="image/png" href="../../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="../../assets/css/styles.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -61,6 +60,7 @@
                                                 <th>Tanggal Transaksi</th>
                                                 <th>Total</th>
                                                 <th>Status</th>
+                                                <th>Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -76,17 +76,20 @@
                                                     <td><?= $data['tgl_transaksi'] ?></td>
                                                     <td><?= $data['total_harga'] ?></td>
                                                     <td>
-                                                        <a href="" data-toggle="modal" data-target="#exampleModal">
+                                                        <a href="" data-toggle="modal" data-target="#editStatus" data-id="<?=$data['id']?>" data-status="<?= $data['status']?>" >
                                                             <?php if ($data['status'] == 1) { ?>
-                                                                <span class="badge bg-warning">Pending</span>
+                                                                <span class="badge bg-warning rounded-3 fw-semibold">Pending</span>
                                                             <?php
                                                             } elseif ($data['status'] == 2) { ?>
-                                                                <span class="badge bg-success">Success</span>
+                                                                <span class="badge bg-success rounded-3 fw-semibold">Success</span>
                                                             <?php } else { ?>
-                                                                <span class="badge bg-danger">Failed</span>
+                                                                <span class="badge bg-danger rounded-3 fw-semibold">Failed</span>
                                                             <?php } ?>
                                                         </a>
-                                                        <a class="badge bg-primary text-white"><i class="ti ti-eye"></i></a>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                    <a href="" class="badge bg-primary text-white text-decoration-none " data-toggle="modal" data-target="#detailTransaksi" data-id="<?= $data['id']?>"> <i class="ti ti-eye" id="detail" ></i></a>
                                                     </td>
                                                 </tr>
 
@@ -104,22 +107,69 @@
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Edit Status-->
+    <div class="modal fade" id="editStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Status</h5>
+                    <!-- button close -->
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <form action="../../action/transaksi_action/update_status.php" method="post">
+                        <input type="hidden" name="id" id="id">
+                        <div class="mb-4">
+                            <label for="exampleInputtext1" class="form-label">Status</label>
+                            <select class="form-select" aria-label="Default select example" name="status" id="status">
+                                <option selected>Pilih Status</option>
+                                <option value="1">Pending</option>
+                                <option value="2">Success</option>
+                                <option value="3">Failed</option>
+                            </select>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Transaksi -->
+    <div class="modal fade" id="detailTransaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Transaksi</h5>
+                    <!-- button close -->
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Nama Pembeli</p>
+                            <p>Produk</p>
+                            <p>Metode Pembayaran</p>
+                            <p>Qty</p>
+                            <p>Tanggal Transaksi</p>
+                            <p>Alamat</p>
+                            <p>Total Harga</p>
+                            <p>Status</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p id="nama_pembeli"></p>
+                            <p id="produk"></p>
+                            <p id="metode_pembayaran"></p>
+                            <p id="qty"></p>
+                            <p id="tgl_transaksi"></p>
+                            <p id="alamat"></p>
+                            <p id="total_harga"></p>
+                            <p id="status"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -131,6 +181,49 @@
     <script src="../../assets/js/sidebarmenu.js"></script>
     <script src="../../assets/js/app.min.js"></script>
     <script src="../../assets/libs/simplebar/dist/simplebar.js"></script>
+
+    <script>
+        $('#editStatus').on('show.bs.modal', function(event) {
+            var a = $(event.relatedTarget);
+            var id = a.data('id');
+            var status = a.data('status');
+
+            var modal = $(this);
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #status').val(status);
+        });
+
+        $('#detailTransaksi').on('show.bs.modal', function(event) {
+            var a = $(event.relatedTarget);
+            var id = a.data('id');
+
+            $.ajax({
+                type: 'post',
+                url: '../../action/transaksi_action/detail_transaksi.php',
+                data: {
+                    id: id
+
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    $('#nama_pembeli').html(obj.pembeli);
+                    $('#produk').html(obj.produk);
+                    $('#metode_pembayaran').html(obj.pembayaran);
+                    $('#qty').html(obj.qty);
+                    $('#tgl_transaksi').html(obj.tgl_transaksi);
+                    $('#alamat').html(obj.alamat);
+                    $('#total_harga').html(obj.total_harga);
+                    $('#status').html(obj.status);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>

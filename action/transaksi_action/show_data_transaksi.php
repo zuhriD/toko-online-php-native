@@ -2,7 +2,7 @@
 
 include '../../connection/connection.php';
 
-$query = "SELECT user.nama AS pembeli, produk.nama AS produk, pembayaran.nama AS pembayaran,
+$query = "SELECT transaksi.id, user.nama AS pembeli, produk.nama AS produk, pembayaran.nama AS pembayaran,
 jml_beli AS qty, tgl_transaksi, alamat, total_harga, transaksi.`status`
 FROM transaksi
 JOIN user ON transaksi.user_id = user.id

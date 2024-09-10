@@ -1,3 +1,6 @@
+<?php 
+ include '../action/security_auth.php';
+?>
 <!doctype html>
 <html lang="en">
 

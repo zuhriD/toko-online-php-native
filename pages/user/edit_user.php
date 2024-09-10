@@ -1,3 +1,6 @@
+<?php 
+    include '../../action/security.php';
+?>
 <!doctype html>
 <html lang="en">
 <?php 

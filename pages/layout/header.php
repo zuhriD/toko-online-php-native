@@ -11,7 +11,7 @@
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               <?php if($_SESSION['role'] == 2){?>
             <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+              <a class="nav-link nav-icon-hover" href="../home/cart.php">
                 <i class="ti ti-shopping-cart"></i>
                 <div class="notification bg-danger rounded-circle"></div>
               </a>

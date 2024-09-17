@@ -1,5 +1,5 @@
 <?php 
-include '../action/security.php';
+include '../action/security_auth.php';
 ?>
 <!doctype html>
 <html lang="en">

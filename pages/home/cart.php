@@ -45,19 +45,27 @@ include '../../action/security.php';
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php 
+                                            include '../../action/dashboard_action/show_list_cart.php';
+
+                                                while($data=mysqli_fetch_assoc($result)){
+                                            ?>
                                             <tr>
-                                                <td><img src="../../assets/images/produk/foto_1.webp" alt="" width="100" height="100"></td>
-                                                <td>100000</td>
+                                                <td><img src="../../assets/images/produk/<?= $data['foto_produk']?>" alt="" width="100" height="100"></td>
+                                                <td><?= number_format($data['harga'], 0, ',', '.')?></td>
                                                 <td>
+                                                    <div class="d-flex">
                                                     <button class="btn btn-primary mx-3"><i class="ti ti-minus"></i></button>
-                                                    <input class="form-control" type="text" name="" id="" style="width: 40px;">
+                                                    <input class="form-control" type="text" name="" id="" style="width: 50px;" value="<?= $data['jml_beli']?>">
                                                     <button class="btn btn-primary mx-3"><i class="ti ti-plus"></i></button>
+                                                    </div>
                                                 </td>
-                                                <td>Rp 200000</td>
+                                                <td>Rp <?= number_format($data['total_harga'], 0, ',', '.')?></td>
                                                 <td>
                                                     <button class="btn btn-primary"><i class="ti ti-trash"></i></button>
                                                 </td>
                                             </tr>
+                                            <?php }?>
                                         </tbody>
                                     </table>
                                 </div>

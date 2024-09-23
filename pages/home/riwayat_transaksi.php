@@ -66,18 +66,16 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include '../../action/transaksi_action/show_data_transaksi.php';
+                                            include '../../action/dashboard_action/show_riwayat_transaksi.php';
 
                                             while ($data = $result->fetch_assoc()) {
                                             ?>
                                                 <tr>
                                                     <td><?= $no++ ?></td>
-                                                    <td><?= $data['pembeli'] ?></td>
                                                     <td><?= $data['produk'] ?></td>
                                                     <td><?= $data['tgl_transaksi'] ?></td>
                                                     <td><?= $data['total_harga'] ?></td>
                                                     <td>
-                                                        <a href="" data-toggle="modal" data-target="#editStatus" data-id="<?=$data['id']?>" data-status="<?= $data['status']?>" >
                                                             <?php if ($data['status'] == 1) { ?>
                                                                 <span class="badge bg-warning rounded-3 fw-semibold">Pending</span>
                                                             <?php
@@ -86,7 +84,6 @@
                                                             <?php } else { ?>
                                                                 <span class="badge bg-danger rounded-3 fw-semibold">Failed</span>
                                                             <?php } ?>
-                                                        </a>
                                                         
                                                     </td>
                                                     <td>
@@ -108,37 +105,7 @@
     </div>
 
 
-    <!-- Modal Edit Status-->
-    <div class="modal fade" id="editStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Status</h5>
-                    <!-- button close -->
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="../../action/transaksi_action/update_status.php" method="post">
-                        <input type="hidden" name="id" id="id">
-                        <div class="mb-4">
-                            <label for="exampleInputtext1" class="form-label">Status</label>
-                            <select class="form-select" aria-label="Default select example" name="status" id="status">
-                                <option selected>Pilih Status</option>
-                                <option value="1">Pending</option>
-                                <option value="2">Success</option>
-                                <option value="3">Failed</option>
-                            </select>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+   
     <!-- Modal Detail Transaksi -->
     <div class="modal fade" id="detailTransaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -187,15 +154,6 @@
     <script src="../../assets/libs/simplebar/dist/simplebar.js"></script>
 
     <script>
-        $('#editStatus').on('show.bs.modal', function(event) {
-            var a = $(event.relatedTarget);
-            var id = a.data('id');
-            var status = a.data('status');
-
-            var modal = $(this);
-            modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #status').val(status);
-        });
 
         $('#detailTransaksi').on('show.bs.modal', function(event) {
             var a = $(event.relatedTarget);

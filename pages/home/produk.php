@@ -40,32 +40,35 @@ include '../../action/security.php';
                             </div>
                         </div>
                     </div>
-                    <?php 
-                        include '../../action/produk_action/show_data_produk_act.php';
+                    <?php
+                    include '../../action/produk_action/show_data_produk_act.php';
 
-                        while($produk = $result->fetch_assoc()){
+                    if($result->num_rows == 0){
+                        echo "<h1 class='align-item-center'>Produk tidak ditemukan</h1>";
+                    }
+                    while ($produk = $result->fetch_assoc()) {
                     ?>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card overflow-hidden rounded-2">
-                            <div class="position-relative">
-                                <a href="./detail_produk.php?id=<?= $produk['id'] ?>"><img src="../../assets/images/produk/<?= $produk['foto_produk']?>" class="card-img-top rounded-0" alt="..."></a>
-                                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>
-                            </div>
-                            <div class="card-body pt-3 p-4">
-                                <h6 class="fw-semibold fs-4"><?= $produk['nama']?></h6>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h6 class="fw-semibold fs-4 mb-0">Rp <?=  number_format($produk['harga'], 0, ',', '.')?><span class="ms-2 fw-normal text-muted fs-3"></span></h6>
-                                    <ul class="list-unstyled d-flex align-items-center mb-0">
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                        <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                    </ul>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card overflow-hidden rounded-2">
+                                <div class="position-relative">
+                                    <a href="./detail_produk.php?id=<?= $produk['id'] ?>"><img src="../../assets/images/produk/<?= $produk['foto_produk'] ?>" class="card-img-top rounded-0" alt="..."></a>
+                                    <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>
+                                </div>
+                                <div class="card-body pt-3 p-4">
+                                    <h6 class="fw-semibold fs-4"><?= $produk['nama'] ?></h6>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-semibold fs-4 mb-0">Rp <?= number_format($produk['harga'], 0, ',', '.') ?><span class="ms-2 fw-normal text-muted fs-3"></span></h6>
+                                        <ul class="list-unstyled d-flex align-items-center mb-0">
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <?php } ?>
                 </div>
             </div>

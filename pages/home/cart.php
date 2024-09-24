@@ -48,6 +48,7 @@ include '../../action/security.php';
                                             <?php 
                                             include '../../action/dashboard_action/show_list_cart.php';
 
+                                            $no=1;
                                                 while($data=mysqli_fetch_assoc($result)){
                                             ?>
                                             <tr>
@@ -55,14 +56,14 @@ include '../../action/security.php';
                                                 <td><?= number_format($data['harga'], 0, ',', '.')?></td>
                                                 <td>
                                                     <div class="d-flex">
-                                                    <button class="btn btn-primary mx-3"><i class="ti ti-minus"></i></button>
-                                                    <input class="form-control" type="text" name="" id="" style="width: 50px;" value="<?= $data['jml_beli']?>">
-                                                    <button class="btn btn-primary mx-3"><i class="ti ti-plus"></i></button>
+                                                    <button class="btn btn-primary mx-3" id="minus-<?= $no++?>" type="button"><i class="ti ti-minus"></i></button>
+                                                    <input class="form-control" type="text" name="qty" id="qty" style="width: 50px;" value="<?= $data['jml_beli']?>">
+                                                    <button class="btn btn-primary mx-3" id="plus-<?= $no++?>" type="button"><i class="ti ti-plus"></i></button>
                                                     </div>
                                                 </td>
                                                 <td>Rp <?= number_format($data['total_harga'], 0, ',', '.')?></td>
                                                 <td>
-                                                    <button class="btn btn-primary"><i class="ti ti-trash"></i></button>
+                                                <a href="../../action/dashboard_action/delete_cart.php?id=<?= $data['keranjang_id'] ?>" class="btn btn-danger" ><i class="ti ti-trash"></i></a>
                                                 </td>
                                             </tr>
                                             <?php }?>
@@ -78,19 +79,23 @@ include '../../action/security.php';
                                 <h4 class="font-weight-semi-bold m-0">Order Total</h4>
                             </div>
                             <div class="card-body">
-                                <div class="d-flex justify-content-between mb-3 pt-1">
-                                    <h6 class="font-weight-medium">Subtotal</h6>
-                                    <h6 class="font-weight-medium">$150</h6>
+                                <?php 
+                                    include '../../action/dashboard_action/show_list_cart.php';
+
+                                    $totalHarga = $conn->query("select sum(total_harga) as tot from keranjang");
+                                    $tot = mysqli_fetch_assoc($totalHarga);
+                                    while($cart=mysqli_fetch_assoc($result)){
+                                ?>
+                                <div class="d-flex justify-content-between pt-1">
+                                    <h6 class="font-weight-medium"><?= $cart['produk']?></h6>
+                                    <h6 class="font-weight-medium"> <?= number_format($cart['total_harga'], 0, ',', '.')?></h6>
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-medium">Shipping</h6>
-                                    <h6 class="font-weight-medium">$10</h6>
-                                </div>
+                                <?php }?>
                             </div>
                             <div class="card-footer border-secondary bg-transparent">
                                 <div class="d-flex justify-content-between mt-2">
                                     <h5 class="font-weight-bold">Total</h5>
-                                    <h5 class="font-weight-bold">$160</h5>
+                                    <h5 class="font-weight-bold"><?= $tot['tot'] == true ? number_format($tot['tot'], 0, ',', '.') : 0?></h5>
                                 </div>
                                 <div class="d-flex ">
                                     <button class="btn btn-primary">Checkout</button>
@@ -109,6 +114,26 @@ include '../../action/security.php';
     <script src="../../assets/js/sidebarmenu.js"></script>
     <script src="../../assets/js/app.min.js"></script>
     <script src="../../assets/libs/simplebar/dist/simplebar.js"></script>
+    <script>
+        $(document).ready(function() {
+            var qty = 1;
+            var no = 1;
+            while(no <= 10){
+                $('#plus-'+no).click(function() {
+                    qty += 1;
+                    $('#qty').val(qty);
+                });
+    
+                $('#minus-'+no).click(function() {
+                    if (qty > 1) {
+                        qty -= 1;
+                        $('#qty').val(qty);
+                    }
+                });
+                no++;
+            }
+        });
+    </script>
 </body>
 
 </html>

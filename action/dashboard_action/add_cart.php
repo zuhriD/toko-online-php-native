@@ -7,14 +7,31 @@ $produk_id = $_POST['id'];
 $qty = $_POST['qty'];
 $total_harga = intval($_POST['harga']) * intval($qty);
 
-$sql = "insert into keranjang values(null,'$user_id','$produk_id','$qty','$total_harga')";
+$insertData = "insert into keranjang values(null,'$user_id','$produk_id','$qty','$total_harga')";
 
-$result = $conn->query($sql);
-if($result == true){
-    header('Location: ../../pages/home/cart.php');
+$searchData = "select * from keranjang where produk_id = '$produk_id' and user_id = '$user_id'";
+$check = $conn->query($searchData);
+
+if($check->num_rows > 0){
+    $data = mysqli_fetch_assoc($check);
+    $newQty = $data['jml_beli'] + $qty;
+    $newTotal = $data['total_harga'] + $total_harga;
+    $updateData = "update keranjang set jml_beli = $newQty, total_harga = $newTotal where produk_id = '$produk_id' and user_id = '$user_id'";
+    $conn->query($updateData);
+    if($conn->query($updateData) == true){
+        header('Location: ../../pages/home/cart.php');
+    }else{
+        $_SESSION['msg_err'] = "Data Gagal Ditambahkan";
+    }
 }else{
-    $_SESSION['msg_err'] = "Data Gagal Ditambahkan";
-    
+    $result = $conn->query($insertData);
+    if($result == true){
+        header('Location: ../../pages/home/cart.php');
+    }else{
+        $_SESSION['msg_err'] = "Data Gagal Ditambahkan";
+    }
 }
+
+
 
 ?>

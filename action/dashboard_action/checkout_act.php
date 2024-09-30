@@ -34,8 +34,6 @@ if ($result == true) {
         }
         $counter++;
     }
-
-    
 } else {
     $_SESSION['msg_err'] = "Data Gagal Ditambahkan";
 }

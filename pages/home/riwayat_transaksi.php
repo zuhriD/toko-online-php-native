@@ -57,7 +57,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Produk</th>
+                                                <th>Nama User</th>
                                                 <th>Tanggal Transaksi</th>
                                                 <th>Total</th>
                                                 <th>Status</th>
@@ -72,7 +72,7 @@
                                             ?>
                                                 <tr>
                                                     <td><?= $no++ ?></td>
-                                                    <td><?= $data['produk'] ?></td>
+                                                    <td><?= $data['nama_user'] ?></td>
                                                     <td><?= $data['tgl_transaksi'] ?></td>
                                                     <td><?= $data['total_harga'] ?></td>
                                                     <td>
@@ -170,7 +170,6 @@
                     var obj = JSON.parse(data);
                     console.log(obj);
                     $('#nama_pembeli').html(obj.pembeli);
-                    $('#produk').html(obj.produk);
                     $('#metode_pembayaran').html(obj.pembayaran);
                     $('#qty').html(obj.qty);
                     $('#tgl_transaksi').html(obj.tgl_transaksi);

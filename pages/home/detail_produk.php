@@ -57,7 +57,15 @@ include '../../action/dashboard_action/show_detail_produk.php';
 
                             <button class="btn btn-primary mx-3" id="plus" type="button"><i class="ti ti-plus"></i></button>
 
-                            <button class="btn btn-primary px-3" id="add-to-cart" type="submit"><i class="ti ti-shopping-cart mr-1"></i> Add To Cart</button>
+                            <?php 
+                                if($data['stok_produk'] == 0){
+                            ?>
+                            <button class="btn btn-danger px-3" id="add-to-cart" type="submit" disabled>STOK HABIS</button>
+                            <?php
+                                }else{
+                            ?>
+                            <button class="btn btn-primary px-3" id="add-to-cart" type="submit" ><i class="ti ti-shopping-cart mr-1"></i> Add To Cart</button>
+                            <?php }?>
 
                             <input type="hidden" name="id" value="<?= $data['id'] ?>">
                             <input type="hidden" name="harga" value="<?= $data['harga'] ?>">

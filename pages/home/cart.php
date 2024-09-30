@@ -105,7 +105,7 @@ include '../../action/security.php';
                                     <h5 class="font-weight-bold"><?= $tot['tot'] == true ? number_format($tot['tot'], 0, ',', '.') : 0 ?></h5>
                                 </div>
                                 <div class="d-flex ">
-                                    <button class="btn btn-primary">Checkout</button>
+                                    <a href="../home/checkout.php" class="btn btn-primary">Checkout</a>
                                 </div>
                             </div>
                         </div>

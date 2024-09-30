@@ -18,6 +18,7 @@ if($result->num_rows > 0){
         $_SESSION['id'] = $data['id'];
         $_SESSION['is_login'] = true;
         $_SESSION['nama'] = $data['nama'];
+        $_SESSION['email'] = $data['email'];
         $_SESSION['role'] = $data['role'];
         echo "<script>alert('Login Success, Anda Sebagai Admin');</script>";
         echo header('location: ../pages/layout/layout.php');
@@ -25,6 +26,7 @@ if($result->num_rows > 0){
         $_SESSION['id'] = $data['id'];
         $_SESSION['is_login'] = true;
         $_SESSION['nama'] = $data['nama'];
+        $_SESSION['email'] = $data['email'];
         $_SESSION['role'] = $data['role'];
         echo "<script>alert('Login Success, Anda Sebagai User');</script>";
         echo "<script>location.href = '../pages/home/index.php';</script>";

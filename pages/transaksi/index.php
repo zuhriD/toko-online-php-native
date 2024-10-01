@@ -1,5 +1,5 @@
-<?php 
-    include '../../action/security.php';
+<?php
+include '../../action/security.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -58,7 +58,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Pembeli</th>
-                                                <th>Produk</th>
+                                                <th>Phone</th>
                                                 <th>Tanggal Transaksi</th>
                                                 <th>Total</th>
                                                 <th>Status</th>
@@ -74,11 +74,11 @@
                                                 <tr>
                                                     <td><?= $no++ ?></td>
                                                     <td><?= $data['pembeli'] ?></td>
-                                                    <td><?= $data['produk'] ?></td>
+                                                    <td><?= $data['no_hp'] ?></td>
                                                     <td><?= $data['tgl_transaksi'] ?></td>
                                                     <td><?= $data['total_harga'] ?></td>
                                                     <td>
-                                                        <a href="" data-toggle="modal" data-target="#editStatus" data-id="<?=$data['id']?>" data-status="<?= $data['status']?>" >
+                                                        <a href="" data-toggle="modal" data-target="#editStatus" data-id="<?= $data['id'] ?>" data-status="<?= $data['status'] ?>">
                                                             <?php if ($data['status'] == 1) { ?>
                                                                 <span class="badge bg-warning rounded-3 fw-semibold">Pending</span>
                                                             <?php
@@ -88,10 +88,10 @@
                                                                 <span class="badge bg-danger rounded-3 fw-semibold">Failed</span>
                                                             <?php } ?>
                                                         </a>
-                                                        
+
                                                     </td>
                                                     <td>
-                                                    <a href="" class="badge bg-primary text-white text-decoration-none " data-toggle="modal" data-target="#detailTransaksi" data-id="<?= $data['id']?>"> <i class="ti ti-eye" id="detail" ></i></a>
+                                                        <a href="" class="badge bg-primary text-white text-decoration-none " data-toggle="modal" data-target="#detailTransaksi" data-id="<?= $data['id'] ?>"> <i class="ti ti-eye" id="detail"></i></a>
                                                     </td>
                                                 </tr>
 
@@ -153,26 +153,39 @@
                     <div class="row">
                         <div class="col-md-4">
                             <p class="fw-bold">Nama Pembeli</p>
-                            <p class="fw-bold">Produk</p>
+                            <p class="fw-bold">Phone</p>
                             <p class="fw-bold">Metode Pembayaran</p>
-                            <p class="fw-bold">Qty</p>
                             <p class="fw-bold">Tanggal Transaksi</p>
                             <p class="fw-bold">Alamat</p>
                             <p class="fw-bold">Total Harga</p>
                             <p class="fw-bold">Status</p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-8">
                             <p id="nama_pembeli"></p>
-                            <p id="produk"></p>
+                            <p id="phone"></p>
                             <p id="metode_pembayaran"></p>
-                            <p id="qty"></p>
                             <p id="tgl_transaksi"></p>
                             <p id="alamat"></p>
                             <p id="total_harga"></p>
                             <span id="status_pembayaran"></span>
                         </div>
-                        <div class="col-md-5">
-                            <img src="" id="foto_produk" width="150px" height="150px">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered no-wrap" id="tableDetail">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                            <th>Qty</th>
+                                            <th>Total Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,7 +195,7 @@
 
     <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="../../assets/js/sidebarmenu.js"></script>
     <script src="../../assets/js/app.min.js"></script>
     <script src="../../assets/libs/simplebar/dist/simplebar.js"></script>
@@ -213,32 +226,64 @@
                     var obj = JSON.parse(data);
                     console.log(obj);
                     $('#nama_pembeli').html(obj.pembeli);
-                    $('#produk').html(obj.produk);
+                    $('#phone').html(obj.no_hp);
                     $('#metode_pembayaran').html(obj.pembayaran);
-                    $('#qty').html(obj.qty);
                     $('#tgl_transaksi').html(obj.tgl_transaksi);
                     $('#alamat').html(obj.alamat);
                     $('#total_harga').html(obj.total_harga);
 
                     // status
-                    if(obj.status == 1){
-                        $('#status_pembayaran').attr('class','badge bg-warning rounded-3 fw-semibold').html('Pending');
-                    }
-                    if(obj.status == 2){
-                        $('#status_pembayaran').attr('class','badge bg-success rounded-3 fw-semibold').html('Success');
-                    }else{
-                        $('#status_pembayaran').attr('class','badge bg-danger rounded-3 fw-semibold').html('Failed');
+                    if (obj.status == 1) {
+                        $('#status_pembayaran').attr('class', 'badge bg-warning rounded-3 fw-semibold').html('Pending');
+                    } else if (obj.status == 2) {
+                        $('#status_pembayaran').attr('class', 'badge bg-success rounded-3 fw-semibold').html('Success');
+                    } else {
+                        $('#status_pembayaran').attr('class', 'badge bg-danger rounded-3 fw-semibold').html('Failed');
                     }
 
-                    // image
-                    $('#foto_produk').attr('src', '../../assets/images/produk/' + obj.foto_produk);
                 },
                 error: function(error) {
                     console.log(error);
                 }
             });
-        });
 
+            $.ajax({
+                type: 'post',
+                url: '../../action/transaksi_action/show_item_transaksi.php',
+                data: {
+                    id: id
+
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+
+                    var table = document.getElementById('tableDetail');
+                    var tableBody = table.getElementsByTagName('tbody')[0];
+                    if (obj.length == 0) {
+                        // clear table
+                        tableBody.innerHTML = 'Data Tidak Ada';
+                    } else if (obj.length > 0) {
+                        tableBody.innerHTML = '';
+                        obj.forEach(item => {
+                            var newRow = tableBody.insertRow(tableBody.rows.length);
+                            newRow.insertCell(0).innerHTML = obj.indexOf(item) + 1;
+                            newRow.insertCell(1).innerHTML = item.produk;
+                            newRow.insertCell(2).innerHTML = item.harga;
+                            newRow.insertCell(3).innerHTML = item.jml_beli;
+                            newRow.insertCell(4).innerHTML = item.total_harga;
+
+                        });
+                    }
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+
+        });
     </script>
 
 </body>

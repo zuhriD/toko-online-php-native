@@ -119,27 +119,33 @@
                     <div class="row">
                         <div class="col-md-4">
                             <p class="fw-bold">Nama Pembeli</p>
-                            <p class="fw-bold">Produk</p>
                             <p class="fw-bold">Metode Pembayaran</p>
-                            <p class="fw-bold">Qty</p>
                             <p class="fw-bold">Tanggal Transaksi</p>
                             <p class="fw-bold">Alamat</p>
+                            <p class="fw-bold">Produk</p>
                             <p class="fw-bold">Total Harga</p>
                             <p class="fw-bold">Status</p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-8">
                             <p id="nama_pembeli"></p>
-                            <p id="produk"></p>
                             <p id="metode_pembayaran"></p>
-                            <p id="qty"></p>
                             <p id="tgl_transaksi"></p>
                             <p id="alamat"></p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="fw-bold">Nama Produk</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p class="fw-bold">Qty</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p class="fw-bold">Total Harga</p>
+                                </div>
+                            </div>
                             <p id="total_harga"></p>
                             <span id="status_pembayaran"></span>
                         </div>
-                        <div class="col-md-5">
-                            <img src="" id="foto_produk" width="150px" height="150px">
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -171,23 +177,42 @@
                     console.log(obj);
                     $('#nama_pembeli').html(obj.pembeli);
                     $('#metode_pembayaran').html(obj.pembayaran);
-                    $('#qty').html(obj.qty);
                     $('#tgl_transaksi').html(obj.tgl_transaksi);
                     $('#alamat').html(obj.alamat);
                     $('#total_harga').html(obj.total_harga);
+                    console.log(obj.status);
 
                     // status
                     if(obj.status == 1){
                         $('#status_pembayaran').attr('class','badge bg-warning rounded-3 fw-semibold').html('Pending');
                     }
-                    if(obj.status == 2){
+                    else if(obj.status == 2){
                         $('#status_pembayaran').attr('class','badge bg-success rounded-3 fw-semibold').html('Success');
                     }else{
                         $('#status_pembayaran').attr('class','badge bg-danger rounded-3 fw-semibold').html('Failed');
                     }
 
-                    // image
-                    $('#foto_produk').attr('src', '../../assets/images/produk/' + obj.foto_produk);
+                    
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: '../../action/dashboard_action/detail_item_transaksi.php',
+                data: {
+                    id: id
+
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    $('#nama_pembeli').html(obj.pembeli);
+                    $('#metode_pembayaran').html(obj.pembayaran);
+
+                    
                 },
                 error: function(error) {
                     console.log(error);

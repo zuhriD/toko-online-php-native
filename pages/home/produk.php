@@ -56,7 +56,7 @@ include '../../action/security.php';
                                 </div>
                                 <div class="card-body pt-3 p-4">
                                     <h6 class="fw-semibold fs-4 mb-0"><?= $produk['nama'] ?></h6>
-                                    <small class="mb-3">Stok: <?= $produk['stok_produk'] ?></small>
+                                    <small class="mb-3">Stok: <?= $produk['stok_produk'] == 0 ? 'Habis' : $produk['stok_produk']?></small>
                                     <div class="d-flex align-items-center justify-content-between mt-4">
                                         <h6 class="fw-semibold fs-4 mb-0">Rp <?= number_format($produk['harga'], 0, ',', '.') ?><span class="ms-2 fw-normal text-muted fs-3"></span></h6>
                                         <ul class="list-unstyled d-flex align-items-center mb-0">

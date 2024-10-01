@@ -261,8 +261,8 @@ include '../../action/security.php';
                     var table = document.getElementById('tableDetail');
                     var tableBody = table.getElementsByTagName('tbody')[0];
                     if (obj.length == 0) {
-                        // clear table
-                        tableBody.innerHTML = 'Data Tidak Ada';
+                        // write no data in center of table
+                        tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No Data</td></tr>';
                     } else if (obj.length > 0) {
                         tableBody.innerHTML = '';
                         obj.forEach(item => {

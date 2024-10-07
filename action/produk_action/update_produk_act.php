@@ -11,7 +11,7 @@ $deskripsi = $_POST['deskripsi'];
 $foto = $_FILES['foto_produk']['name'];
 $stok = $_POST['stok_produk'];
 
-if ($_FILES['foto_produk']) {
+if (isset($_FILES['foto_produk']) && $foto != '') {
     $nama_file = $_FILES['foto_produk']['name'];
     $source = $_FILES['foto_produk']['tmp_name'];
     $folder = 'D:\Kuliah\SM4\PEMWEB\laragon\www\toko_online\assets\images\produk\\';

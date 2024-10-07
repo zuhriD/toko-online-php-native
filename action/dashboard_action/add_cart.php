@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include '../../connection/connection.php';
 session_start();
@@ -12,26 +12,22 @@ $insertData = "insert into keranjang values(null,'$user_id','$produk_id','$qty',
 $searchData = "select * from keranjang where produk_id = '$produk_id' and user_id = '$user_id'";
 $check = $conn->query($searchData);
 
-if($check->num_rows > 0){
+if ($check->num_rows > 0) {
     $data = mysqli_fetch_assoc($check);
     $newQty = $data['jml_beli'] + $qty;
     $newTotal = $data['total_harga'] + $total_harga;
     $updateData = "update keranjang set jml_beli = $newQty, total_harga = $newTotal where produk_id = '$produk_id' and user_id = '$user_id'";
     $conn->query($updateData);
-    if($conn->query($updateData) == true){
+    if ($conn->query($updateData) == true) {
         header('Location: ../../pages/home/cart.php');
-    }else{
+    } else {
         $_SESSION['msg_err'] = "Data Gagal Ditambahkan";
     }
-}else{
+} else {
     $result = $conn->query($insertData);
-    if($result == true){
+    if ($result == true) {
         header('Location: ../../pages/home/cart.php');
-    }else{
+    } else {
         $_SESSION['msg_err'] = "Data Gagal Ditambahkan";
     }
 }
-
-
-
-?>

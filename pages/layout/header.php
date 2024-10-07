@@ -13,7 +13,7 @@
             <li class="nav-item">
               <a class="nav-link nav-icon-hover" href="../home/cart.php">
                 <i class="ti ti-shopping-cart"></i>
-                <div class="notification bg-danger rounded-circle"></div>
+                <span class="badge bg-danger rounded-pill"><?= $_SESSION['cart']?></span>
               </a>
             </li>
             <?php }?>

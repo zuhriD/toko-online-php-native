@@ -264,7 +264,7 @@ include '../../action/security.php';
                         // write no data in center of table
                         tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No Data</td></tr>';
                     } else if (obj.length > 0) {
-                        tableBody.innerHTML = '';
+                        tableBody.innerHTML = ''; 
                         obj.forEach(item => {
                             var newRow = tableBody.insertRow(tableBody.rows.length);
                             newRow.insertCell(0).innerHTML = obj.indexOf(item) + 1;

@@ -9,7 +9,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 // action for insert data to database
-$sql = "INSERT INTO user VALUES (null,'$name', '$email', '$username', '$password')";
+$sql = "INSERT INTO user VALUES (null,'$name', '$email', '$username', '$password', 2)";
 
 if($conn->query($sql) == true){
     echo "<script>alert('Register Success');</script>";

@@ -17,9 +17,11 @@ if ($_FILES['foto_produk']) {
     $folder = 'D:\Kuliah\SM4\PEMWEB\laragon\www\toko_online\assets\images\produk\\';
 
     move_uploaded_file($source, $folder . $nama_file);
+    $sql = "UPDATE produk SET kategori_id = '$kategori', nama = '$nama', harga = '$harga', deskripsi = '$deskripsi', foto_produk = '$foto', stok_produk = '$stok' WHERE id = ".$id;
+}else{
+    $sql = "UPDATE produk SET kategori_id = '$kategori', nama = '$nama', harga = '$harga', deskripsi = '$deskripsi', stok_produk = '$stok' WHERE id = ".$id;
 }
 
-$sql = "UPDATE produk SET kategori_id = '$kategori', nama = '$nama', harga = '$harga', deskripsi = '$deskripsi', foto_produk = '$foto', stok_produk = '$stok' WHERE id = ".$id;
 
 if ($conn->query($sql) === TRUE) {
     $_SESSION['msg'] = "Data Berhasil Diupdate";

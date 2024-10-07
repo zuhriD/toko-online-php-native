@@ -27,6 +27,7 @@ include '../../action/dashboard_action/show_detail_produk.php';
             <!--  Header End -->
             <!-- Content -->
             <div class="container-fluid">
+                <a href="./produk.php" class="btn btn-primary mb-3"><i class="ti ti-arrow-left"></i></a>
                 <div class="row px-xl-5">
                     <div class="col-lg-5 pb-5">
                         <!-- add image -->
@@ -36,14 +37,14 @@ include '../../action/dashboard_action/show_detail_produk.php';
                     <div class="col-lg-7 pb-5">
                         <h3 class="font-weight-semi-bold"><?= $data['nama'] ?></h3>
                         <div class="d-flex mb-3">
-                            <div class="text-primary mr-2">
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star-half-alt"></small>
-                                <small class="far fa-star"></small>
+                            <div class="text-primary ">
+                                <small class="ti ti-star"></small>
+                                <small class="ti ti-star"></small>
+                                <small class="ti ti-star"></small>
+                                <small class="ti ti-star-half-alt"></small>
+                                <small class="ti ti-star"></small>
                             </div>
-                            <small class="pt-1">(50 Reviews)</small>
+                            <small class="pt-1 ms-2">(50 Reviews)</small>
                         </div>
                         <h3 class="font-weight-semi-bold mb-4">Rp <?= number_format($data['harga'], 0, ',', '.') ?></h3>
                         <p class="mb-4"><?= $data['deskripsi'] ?></p>

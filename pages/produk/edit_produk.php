@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputtext1" class="form-label">Foto Produk</label>
-                                        <input type="file" class="form-control" aria-describedby="textHelp" name="foto_produk" id="image" required>
+                                        <input type="file" class="form-control" aria-describedby="textHelp" name="foto_produk" id="image" >
                                         <img class="mt-3" src="../../assets/images/produk/<?= $data['foto_produk']; ?>" alt="foto_produk" width="100px" height="100px" id="foto">
                                     </div>
                                     <div class="mb-3">

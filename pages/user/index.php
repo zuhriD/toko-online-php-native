@@ -1,5 +1,5 @@
-<?php 
-    include '../../action/security.php';
+<?php
+include '../../action/security.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -84,7 +84,7 @@
                                                     <?php } ?>
                                                     <td>
                                                         <a href="edit_user.php?id=<?= $data['id'] ?>" class="btn btn-warning"><i class="ti ti-edit"></i></a>
-                                                        <a href="../../action/user_action/delete_user_act.php?id=<?= $data['id'] ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data Ini?')"><i class="ti ti-trash"></i></a>
+                                                        <a href="../../action/user_action/delete_user_act.php?id=<?= $data['id'] ?>" class="btn btn-danger" onclick="return confirmDelete(event, <?= $data['id'] ?>)"><i class="ti ti-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             <?php
@@ -102,10 +102,37 @@
         </div>
     </div>
     <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/sidebarmenu.js"></script>
     <script src="../../assets/js/app.min.js"></script>
     <script src="../../assets/libs/simplebar/dist/simplebar.js"></script>
+
+    <script>
+        function confirmDelete(event, id) {
+            event.preventDefault(); // Prevent the default action of the <a> tag
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    setTimeout(() => {
+                        window.location.href = '../../action/user_action/delete_user_act.php?id=' + id;
+                    }, 2000); 
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -117,35 +117,42 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
+                    <div class="col-md-4">
                             <p class="fw-bold">Nama Pembeli</p>
+                            <p class="fw-bold">Phone</p>
                             <p class="fw-bold">Metode Pembayaran</p>
                             <p class="fw-bold">Tanggal Transaksi</p>
                             <p class="fw-bold">Alamat</p>
-                            <p class="fw-bold">Produk</p>
                             <p class="fw-bold">Total Harga</p>
                             <p class="fw-bold">Status</p>
                         </div>
                         <div class="col-md-8">
                             <p id="nama_pembeli"></p>
+                            <p id="phone"></p>
                             <p id="metode_pembayaran"></p>
                             <p id="tgl_transaksi"></p>
                             <p id="alamat"></p>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p class="fw-bold">Nama Produk</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <p class="fw-bold">Qty</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <p class="fw-bold">Total Harga</p>
-                                </div>
-                            </div>
                             <p id="total_harga"></p>
                             <span id="status_pembayaran"></span>
                         </div>
-                        
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered no-wrap" id="tableDetail">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                            <th>Qty</th>
+                                            <th>Total Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -176,23 +183,21 @@
                     var obj = JSON.parse(data);
                     console.log(obj);
                     $('#nama_pembeli').html(obj.pembeli);
+                    $('#phone').html(obj.no_hp);
                     $('#metode_pembayaran').html(obj.pembayaran);
                     $('#tgl_transaksi').html(obj.tgl_transaksi);
                     $('#alamat').html(obj.alamat);
                     $('#total_harga').html(obj.total_harga);
-                    console.log(obj.status);
 
                     // status
-                    if(obj.status == 1){
-                        $('#status_pembayaran').attr('class','badge bg-warning rounded-3 fw-semibold').html('Pending');
-                    }
-                    else if(obj.status == 2){
-                        $('#status_pembayaran').attr('class','badge bg-success rounded-3 fw-semibold').html('Success');
-                    }else{
-                        $('#status_pembayaran').attr('class','badge bg-danger rounded-3 fw-semibold').html('Failed');
+                    if (obj.status == 1) {
+                        $('#status_pembayaran').attr('class', 'badge bg-warning rounded-3 fw-semibold').html('Pending');
+                    } else if (obj.status == 2) {
+                        $('#status_pembayaran').attr('class', 'badge bg-success rounded-3 fw-semibold').html('Success');
+                    } else {
+                        $('#status_pembayaran').attr('class', 'badge bg-danger rounded-3 fw-semibold').html('Failed');
                     }
 
-                    
                 },
                 error: function(error) {
                     console.log(error);
@@ -201,7 +206,7 @@
 
             $.ajax({
                 type: 'post',
-                url: '../../action/dashboard_action/detail_item_transaksi.php',
+                url: '../../action/transaksi_action/show_item_transaksi.php',
                 data: {
                     id: id
 
@@ -209,10 +214,25 @@
                 success: function(data) {
                     var obj = JSON.parse(data);
                     console.log(obj);
-                    $('#nama_pembeli').html(obj.pembeli);
-                    $('#metode_pembayaran').html(obj.pembayaran);
 
-                    
+                    var table = document.getElementById('tableDetail');
+                    var tableBody = table.getElementsByTagName('tbody')[0];
+                    if (obj.length == 0) {
+                        // write no data in center of table
+                        tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No Data</td></tr>';
+                    } else if (obj.length > 0) {
+                        tableBody.innerHTML = ''; 
+                        obj.forEach(item => {
+                            var newRow = tableBody.insertRow(tableBody.rows.length);
+                            newRow.insertCell(0).innerHTML = obj.indexOf(item) + 1;
+                            newRow.insertCell(1).innerHTML = item.produk;
+                            newRow.insertCell(2).innerHTML = item.harga;
+                            newRow.insertCell(3).innerHTML = item.jml_beli;
+                            newRow.insertCell(4).innerHTML = item.total_harga;
+
+                        });
+                    }
+
                 },
                 error: function(error) {
                     console.log(error);

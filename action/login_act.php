@@ -14,6 +14,7 @@ $result = $conn->query($sql);
 $_SESSION['is_login'] = false;
 if($result->num_rows > 0){
     $data = $result->fetch_assoc();
+    
     if($data['role'] == 1){
         $_SESSION['id'] = $data['id'];
         $_SESSION['is_login'] = true;
